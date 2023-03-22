@@ -3,16 +3,14 @@
 const inputChecker = document.querySelector(".input-checker");
 const btnStart = document.querySelector(".btn-start");
 const btnCheck = document.querySelector(".btn-check");
-let cotnainerUnderscores = document.querySelector(".container-underscores");
+const cotnainerUnderscores = document.querySelector(".container-underscores");
 const gameMode = document.querySelector("#game");
 
-let nameHolder = [];
 // This button will start the game and hide the word
 
 const startGame = function () {
   btnStart.addEventListener("click", function () {
     const gameModeValue = gameMode.value;
-
     if (gameModeValue === "pokemon") {
       console.log("pokemon");
 
@@ -21,21 +19,18 @@ const startGame = function () {
         .then((data) => {
           // Get a random Pokémon name from the list
           const pokemonNames = data.results.map((result) => result.name);
-
           const randomPokemonName = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
 
           // Use the random name for your hangman game
           console.log(randomPokemonName);
           const splitNameArray = randomPokemonName.split("");
+          cotnainerUnderscores.innerHTML = "";
+          console.log(splitNameArray);
 
-          nameHolder.push(splitNameArray);
-          console.log(nameHolder);
-
-          nameHolder[0].forEach((letter) => {
+          splitNameArray.forEach((letter) => {
             const hiddenUnderscore = document.createElement("div");
             hiddenUnderscore.textContent = "_";
-            cotnainerUnderscores.insertAdjacentElement("afterend", hiddenUnderscore);
-            nameHolder = [];
+            cotnainerUnderscores.appendChild(hiddenUnderscore);
           });
         });
     } else if (gameModeValue === "yu-gi-oh") {
