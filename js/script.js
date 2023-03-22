@@ -1,90 +1,75 @@
 "use strict";
 
-const inputWord = document.querySelector("#word");
 const inputChecker = document.querySelector(".input-checker");
 const btnStart = document.querySelector(".btn-start");
 const btnCheck = document.querySelector(".btn-check");
-const textAnswer = document.querySelector(".text-answer");
-// const secondPlayerAnswer = document.querySelector("#second-player");
-const bothInputs = document.querySelectorAll(".both-inputs");
-const wordArray = [];
+let cotnainerUnderscores = document.querySelector(".container-underscores");
+const gameMode = document.querySelector("#game");
 
-let lettersOfWord = [];
-let telitses;
-
+let nameHolder = [];
 // This button will start the game and hide the word
+
 const startGame = function () {
-  // Disallow input of anything else than a word
-  bothInputs.forEach(function (currnetInput) {
-    currnetInput.addEventListener("input", (event) => {
-      const regex = /[^a-zA-Z]/gi;
-      event.target.value = event.target.value.replace(regex, "");
-    });
-  });
+  btnStart.addEventListener("click", function () {
+    const gameModeValue = gameMode.value;
 
-  // Gets the word from the input field
-  btnStart.addEventListener("click", (e) => {
-    // Checks if the answer is empty
-    if (inputWord.value === "") {
-      return;
-    } else {
-      const rightWordInput = inputWord.value.toLowerCase();
+    if (gameModeValue === "pokemon") {
+      console.log("pokemon");
 
-      // splits each letter to the array
-      wordArray.push(rightWordInput);
-      console.log(wordArray);
-      lettersOfWord = [...wordArray[0]];
-      console.log(lettersOfWord);
+      fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
+        .then((response) => response.json())
+        .then((data) => {
+          // Get a random Pokémon name from the list
+          const pokemonNames = data.results.map((result) => result.name);
 
-      // Creates the _ for each letter
-      lettersOfWord.forEach(() => {
-        telitses = document.createElement("em");
-        telitses.textContent = "_";
-        telitses.className = "telitses";
-        telitses.classList.add("right-margin-s");
-        textAnswer.insertAdjacentElement("afterend", telitses);
-      });
+          const randomPokemonName = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
+
+          // Use the random name for your hangman game
+          console.log(randomPokemonName);
+          const splitNameArray = randomPokemonName.split("");
+
+          nameHolder.push(splitNameArray);
+          console.log(nameHolder);
+
+          nameHolder[0].forEach((letter) => {
+            const hiddenUnderscore = document.createElement("div");
+            hiddenUnderscore.textContent = "_";
+            cotnainerUnderscores.insertAdjacentElement("afterend", hiddenUnderscore);
+            nameHolder = [];
+          });
+        });
+    } else if (gameModeValue === "yu-gi-oh") {
+      console.log("yu gi oh");
+      fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php")
+        .then((response) => response.json())
+        .then((data) => {
+          // Get a random card name from the list
+          const cardNames = data.data.map((card) => card.name);
+          const randomName = cardNames[Math.floor(Math.random() * cardNames.length)];
+          console.log(randomName);
+          // Use the random name for your hangman game
+        });
     }
-    inputWord.textContent = "";
-    btnStart.disabled = true;
-  });
-
-  // Second button
-
-  btnCheck.addEventListener("click", function () {
-    const allTelitses = document.querySelectorAll(".telitses");
-
-    lettersOfWord.forEach(function (letter, i) {
-      // Change the _ to the right letter
-      if (inputChecker.value === letter) {
-        allTelitses[i].textContent = letter;
-      }
-    });
-
-    inputChecker.value = "";
   });
 };
-
 startGame();
 
-fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
-  .then((response) => response.json())
-  .then((data) => {
-    // Get a random Pokémon name from the list
-    const pokemonNames = data.results.map((result) => result.name);
-    const randomPokemonName = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
+//? HELPERS
+// !Disallow input of anything else than a word
+//  bothInputs.forEach(function (currnetInput) {
+//   currnetInput.addEventListener("input", (event) => {
+//     const regex = /[^a-zA-Z]/gi;
+//     event.target.value = event.target.value.replace(regex, "");
+//   });
+// });
 
-    // Use the random name for your hangman game
-    console.log(randomPokemonName);
-  });
+// ?
 
-fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php")
-  .then((response) => response.json())
-  .then((data) => {
-    // Get a random card name from the list
-    const cardNames = data.data.map((card) => card.name);
-    const randomName = cardNames[Math.floor(Math.random() * cardNames.length)];
-
-    // Use the random name for your hangman game
-    console.log(randomName);
-  });
+//! Creates the _ for each letter
+//   lettersOfWord.forEach(() => {
+//     telitses = document.createElement("em");
+//     telitses.textContent = "_";
+//     telitses.className = "telitses";
+//     telitses.classList.add("right-margin-s");
+//     textAnswer.insertAdjacentElement("afterend", telitses);
+//   });

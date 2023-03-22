@@ -11,13 +11,13 @@
     <h1>Hello welcome to the hangman game</h1>
 
     <div class="container">
-      <div class="first-player">
-        <label for="word">Dwse mia leksi</label>
-        <input type="text" id="word" class="both-inputs" />
-        <br />
-        <label for="res-word" class="text-answer">Edw tha einai h apantisi</label>
-        <button class="btn-start">start</button>
-      </div>
+      <label for="game">Choose a game</label>
+      <select name="game" id="game">
+        <option value="pokemon">Pokemon</option>
+        <option value="yu-gi-oh">Yu-gi-oh</option>
+      </select>
+      <button class="btn-start">start game</button>
+      <div class="container-underscores"></div>
 
       <div class="second-player">
         <label for="second-player">Write a letter</label>
