@@ -6,27 +6,32 @@ const btnCheck = document.querySelector(".btn-check");
 const cotnainerUnderscores = document.querySelector(".container-underscores");
 const gameMode = document.querySelector("#game");
 
+// To prevent someone change the HTML
+inputChecker.maxLength = 1;
+
 // This button will start the game and hide the word
 
 const startGame = function () {
   btnStart.addEventListener("click", function () {
     const gameModeValue = gameMode.value;
+    // here checks what game mode we have and sends the right fech to the function
     if (gameModeValue === "pokemon") {
       const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=1000";
-      console.log("pokemon");
-
       resOfFetches(pokemonFetchData, gameModeValue);
     } else if (gameModeValue === "yu-gi-oh") {
-      console.log("yu gi oh");
       const yuGiOhFechData = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
-
       resOfFetches(yuGiOhFechData, gameModeValue);
     }
   });
 };
 startGame();
 
-// test
+const checkGame = function () {
+  btnCheck.addEventListener("click", function () {
+    console.log("works");
+  });
+};
+checkGame();
 
 const resOfFetches = function (fetchData, gameMode) {
   fetch(fetchData)
@@ -68,12 +73,3 @@ const resOfFetches = function (fetchData, gameMode) {
 // });
 
 // ?
-
-//! Creates the _ for each letter
-//   lettersOfWord.forEach(() => {
-//     telitses = document.createElement("em");
-//     telitses.textContent = "_";
-//     telitses.className = "telitses";
-//     telitses.classList.add("right-margin-s");
-//     textAnswer.insertAdjacentElement("afterend", telitses);
-//   });
