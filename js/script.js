@@ -12,42 +12,51 @@ const startGame = function () {
   btnStart.addEventListener("click", function () {
     const gameModeValue = gameMode.value;
     if (gameModeValue === "pokemon") {
+      const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=1000";
       console.log("pokemon");
 
-      fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
-        .then((response) => response.json())
-        .then((data) => {
-          // Get a random Pokémon name from the list
-          const pokemonNames = data.results.map((result) => result.name);
-          const randomPokemonName = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
-
-          // Use the random name for your hangman game
-          console.log(randomPokemonName);
-          const splitNameArray = randomPokemonName.split("");
-          cotnainerUnderscores.innerHTML = "";
-          console.log(splitNameArray);
-
-          splitNameArray.forEach((letter) => {
-            const hiddenUnderscore = document.createElement("div");
-            hiddenUnderscore.textContent = "_";
-            cotnainerUnderscores.appendChild(hiddenUnderscore);
-          });
-        });
+      resOfFetches(pokemonFetchData, gameModeValue);
     } else if (gameModeValue === "yu-gi-oh") {
       console.log("yu gi oh");
-      fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php")
-        .then((response) => response.json())
-        .then((data) => {
-          // Get a random card name from the list
-          const cardNames = data.data.map((card) => card.name);
-          const randomName = cardNames[Math.floor(Math.random() * cardNames.length)];
-          console.log(randomName);
-          // Use the random name for your hangman game
-        });
+      const yuGiOhFechData = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
+
+      resOfFetches(yuGiOhFechData, gameModeValue);
     }
   });
 };
 startGame();
+
+// test
+
+const resOfFetches = function (fetchData, gameMode) {
+  fetch(fetchData)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      let pokemonNames;
+      // Here checks the mode and puts the right pokemon or card
+      if (gameMode === "pokemon") {
+        pokemonNames = data.results.map((result) => result.name);
+      } else if (gameMode === "yu-gi-oh") {
+        pokemonNames = data.data.map((card) => card.name);
+      }
+      const randomPokemonName = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
+
+      //  randomPokemonName is an array with each letter of the pokemon
+      console.log(randomPokemonName);
+      const splitNameArray = randomPokemonName.split("");
+      cotnainerUnderscores.innerHTML = "";
+      console.log(splitNameArray);
+
+      splitNameArray.forEach(() => {
+        const hiddenUnderscore = document.createElement("em");
+        hiddenUnderscore.classList.add("right-margin-s");
+        hiddenUnderscore.textContent = "_";
+        cotnainerUnderscores.appendChild(hiddenUnderscore);
+      });
+    });
+};
 
 //? HELPERS
 // !Disallow input of anything else than a word
