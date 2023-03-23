@@ -12,11 +12,12 @@ let letterArrayHolder;
 let hiddenUnderscore;
 let letterDoesNotExistArray = [];
 btnCheck.disabled = true;
-
+let lifesCounter = 0;
 // This button will start the game and hide the word
 
 const startGame = function () {
   // This code disalows to enter anything else than a word and can enter only an English word
+
   inputChecker.addEventListener("input", (event) => {
     const regex = /[^a-zA-Z]/gi;
     event.target.value = event.target.value.replace(regex, "");
@@ -25,11 +26,12 @@ const startGame = function () {
   btnStart.addEventListener("click", function () {
     letterDoesNotExistArray = [];
     btnCheck.disabled = false;
+    lifesCounter = 0;
     containerWrongAnswer.innerHTML = "";
     const gameModeValue = gameMode.value;
     // here checks what game mode we have and sends the right fech to the function
     if (gameModeValue === "pokemon") {
-      const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=1000";
+      const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=10001";
       resOfFetches(pokemonFetchData, gameModeValue);
     } else if (gameModeValue === "yu-gi-oh") {
       const yuGiOhFechData = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
@@ -55,12 +57,27 @@ const checkGame = function () {
         letterDoesNotExistArray.push(answerGiven);
         console.log(letterDoesNotExistArray);
 
+        // Here is the check of the lifes counter
+        lifesCounter++;
+        if (lifesCounter > 3) {
+          letterArrayHolder.forEach((value, i) => {
+            // Here checks the left _ and adds a class to show with red the undercovered letters
+            if (replaceUnderscore[i].textContent === "_") {
+              replaceUnderscore[i].classList.add("show-wrong-letter");
+              replaceUnderscore[i].textContent = value;
+            } else replaceUnderscore[i].textContent = value;
+          });
+
+          console.log("you lost");
+          btnCheck.disabled = true;
+        }
+
+        console.log(lifesCounter);
         const letterDoesntExist = document.createElement("em");
         letterDoesntExist.classList.add("right-margin-s", "wrong-letter");
         letterDoesntExist.innerHTML = answerGiven;
         containerWrongAnswer.append(letterDoesntExist);
       }
-      // Logika tha prepei na ftiaksw ena array pou tha apothikeuei mesa ta xamena grammata kai otan ksana pataei to start game na midenizei. etsi otan tha pataei lathos gramma tha koitaei mesa sto array an to exei ksana patisei kai an den to exei ksana patisei tote tha ekteleite alliws den tha kanei tpt
     }
 
     inputChecker.value = "";
@@ -68,16 +85,18 @@ const checkGame = function () {
 };
 checkGame();
 
+// Heres the fetches
 const resOfFetches = function (fetchData, gameMode) {
   try {
+    // Abortcontroler stops the fetch request
     const controller = new AbortController();
     const signal = controller.signal;
 
-    // Set a timeout to abort the fetch request after 10 seconds
+    // Set a timeout to abort the fetch request after 15 seconds
     const timeoutId = setTimeout(() => {
       controller.abort();
       console.log("Fetch request timed out.");
-    }, 10000);
+    }, 15000);
 
     fetch(fetchData, { signal })
       .then((response) => {
@@ -108,7 +127,12 @@ const resOfFetches = function (fetchData, gameMode) {
           hiddenUnderscore = document.createElement("em");
           hiddenUnderscore.classList.add("right-margin-s", "underscores-lines");
 
-          if (element === " ") hiddenUnderscore.textContent = " ";
+          if (element === "'") hiddenUnderscore.textContent = "'";
+          else if (element === ",") hiddenUnderscore.textContent = ",";
+          else if (element === ".") hiddenUnderscore.textContent = ".";
+          else if (element === "'") hiddenUnderscore.textContent = "'";
+          else if (element === "-") hiddenUnderscore.textContent = "-";
+          else if (element === " ") hiddenUnderscore.textContent = " ";
           else {
             hiddenUnderscore.textContent = "_";
           }
@@ -117,9 +141,9 @@ const resOfFetches = function (fetchData, gameMode) {
       })
       .catch((error) => {
         if (error.name === "AbortError") {
-          console.log("Fetch request aborted.");
+          console.error("Fetch request aborted.");
         } else {
-          console.log("Error:", error);
+          console.error("Error:", error);
         }
       })
       .finally(() => {
@@ -127,6 +151,6 @@ const resOfFetches = function (fetchData, gameMode) {
         clearTimeout(timeoutId);
       });
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
