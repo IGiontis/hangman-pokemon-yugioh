@@ -9,25 +9,36 @@
   </head>
   <body>
     <div class="container">
-      <h1>Hello welcome to the hangman game</h1>
-      <label for="game">Choose a game</label>
-      <select name="game" id="game">
+      <h1 class="bottom-margin-l">Hello welcome to the hangman game</h1>
+      <label for="game" class="bottom-margin-s">Choose a game</label>
+      <select name="game" id="game" class="bottom-margin-s">
         <option value="pokemon">Pokemon</option>
         <option value="yu-gi-oh">Yu-gi-oh</option>
       </select>
-      <button class="btn-start">start game</button>
-      <div class="container-underscores"></div>
+      <button class="btn-start bottom-margin-m">start game</button>
+      <div class="container-underscores bottom-margin-l"></div>
 
       <div class="second-player">
         <label for="second-player">Write a letter</label>
         <input type="text" id="second-player" class="input-checker both-inputs" />
         <button class="btn-check">check the answer</button>
 
-        <div class="container-wrong-answer"></div>
+        <div class="ban-letters dispay-flex">
+          <div class="margin-top-s">Ban letters</div>
+          <div class="container-wrong-answer"></div>
+        </div>
       </div>
     </div>
 
     <!-- test -->
+    <div class="hangman hidden">
+      <div class="head hidden"></div>
+      <div class="body hidden"></div>
+      <div class="left-arm hidden"></div>
+      <div class="right-arm hidden"></div>
+      <div class="left-leg hidden"></div>
+      <div class="right-leg hidden"></div>
+    </div>
   </body>
   <script src="/js/script.js"></script>
 </html>

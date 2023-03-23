@@ -24,6 +24,7 @@ const startGame = function () {
   });
 
   btnStart.addEventListener("click", function () {
+    inputChecker.focus();
     letterDoesNotExistArray = [];
     btnCheck.disabled = false;
     lifesCounter = 0;
@@ -39,6 +40,7 @@ const startGame = function () {
     }
   });
 };
+
 startGame();
 
 const checkGame = function () {
@@ -84,6 +86,14 @@ const checkGame = function () {
   });
 };
 checkGame();
+
+// Triggers the enter button when the user is inside the input and clicks it
+inputChecker.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    btnCheck.click();
+  }
+});
 
 // Heres the fetches
 const resOfFetches = function (fetchData, gameMode) {
