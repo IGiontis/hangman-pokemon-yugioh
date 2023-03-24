@@ -6,6 +6,8 @@ const btnCheck = document.querySelector(".btn-check");
 const cotnainerUnderscores = document.querySelector(".container-underscores");
 const gameMode = document.querySelector("#game");
 const containerWrongAnswer = document.querySelector(".container-wrong-answer");
+const hangman = document.querySelectorAll(".hangmanAll");
+const hangmanContainer = document.querySelector(".hangman-container");
 
 inputChecker.maxLength = 1;
 let letterArrayHolder;
@@ -13,6 +15,8 @@ let hiddenUnderscore;
 let letterDoesNotExistArray = [];
 btnCheck.disabled = true;
 let lifesCounter = 0;
+let hangmanCounter = 0;
+
 // This button will start the game and hide the word
 
 const startGame = function () {
@@ -24,10 +28,13 @@ const startGame = function () {
   });
 
   btnStart.addEventListener("click", function () {
+    addHiddenClass();
     inputChecker.focus();
     letterDoesNotExistArray = [];
     btnCheck.disabled = false;
     lifesCounter = 0;
+    hangmanCounter = 0;
+    inputChecker.value = "";
     containerWrongAnswer.innerHTML = "";
     const gameModeValue = gameMode.value;
     // here checks what game mode we have and sends the right fech to the function
@@ -49,11 +56,13 @@ const checkGame = function () {
     const answerGiven = inputChecker.value.toLowerCase();
     const replaceUnderscore = document.querySelectorAll(".underscores-lines");
 
+    // Replace the underscore with the letter if the guess was correct
     letterArrayHolder.forEach((element, i) => {
       if (answerGiven === element) replaceUnderscore[i].textContent = element;
     });
 
     // If theres a letter that already exists in the wrongLetter then dont do anything.
+
     if (!letterArrayHolder.includes(answerGiven)) {
       if (answerGiven !== "" && !letterDoesNotExistArray.includes(answerGiven)) {
         letterDoesNotExistArray.push(answerGiven);
@@ -61,7 +70,15 @@ const checkGame = function () {
 
         // Here is the check of the lifes counter
         lifesCounter++;
-        if (lifesCounter > 3) {
+
+        //  ! Twra prepei na kanw kati wste otan ftanei ola ta lathi na kanei kati.
+        // Here shows for each mistake a piece of the hangman
+        hangmanContainer.classList.remove("hidden");
+        hangman[hangmanCounter].classList.remove("hidden");
+        console.log(hangman[hangmanCounter]);
+        hangmanCounter++;
+        if (lifesCounter === 6) {
+          btnStart.focus();
           letterArrayHolder.forEach((value, i) => {
             // Here checks the left _ and adds a class to show with red the undercovered letters
             if (replaceUnderscore[i].textContent === "_") {
@@ -72,6 +89,7 @@ const checkGame = function () {
 
           console.log("you lost");
           btnCheck.disabled = true;
+          return;
         }
 
         console.log(lifesCounter);
@@ -138,6 +156,16 @@ const resOfFetches = function (fetchData, gameMode) {
           hiddenUnderscore.classList.add("right-margin-s", "underscores-lines");
 
           if (element === "'") hiddenUnderscore.textContent = "'";
+          else if (element === "0") hiddenUnderscore.textContent = "0";
+          else if (element === "1") hiddenUnderscore.textContent = "1";
+          else if (element === "2") hiddenUnderscore.textContent = "2";
+          else if (element === "3") hiddenUnderscore.textContent = "3";
+          else if (element === "4") hiddenUnderscore.textContent = "4";
+          else if (element === "5") hiddenUnderscore.textContent = "5";
+          else if (element === "6") hiddenUnderscore.textContent = "6";
+          else if (element === "7") hiddenUnderscore.textContent = "7";
+          else if (element === "8") hiddenUnderscore.textContent = "8";
+          else if (element === "9") hiddenUnderscore.textContent = "9";
           else if (element === ",") hiddenUnderscore.textContent = ",";
           else if (element === ".") hiddenUnderscore.textContent = ".";
           else if (element === "'") hiddenUnderscore.textContent = "'";
@@ -163,4 +191,11 @@ const resOfFetches = function (fetchData, gameMode) {
   } catch (error) {
     console.error("Error:", error);
   }
+};
+
+const addHiddenClass = function () {
+  hangmanContainer.classList.add("hidden");
+  hangman.forEach((element) => {
+    element.classList.add("hidden");
+  });
 };

@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap");
 
+:root {
+  --btn-color: #2a2a5a;
+  --btn-color--hover: #3939e9;
+  --wrong-letters-color: rgb(172, 4, 4);
+  --answer-letter-color: rgb(224, 24, 24);
+}
 * {
   margin: 0;
   padding: 0;
@@ -13,11 +19,13 @@ html {
 
 body {
   font-size: 1.6rem;
+  background: rgb(222, 213, 217);
+  background: radial-gradient(circle, rgba(222, 213, 217, 1) 0%, rgba(54, 133, 226, 1) 94%);
 }
 
 .container {
   max-width: 50%;
-  margin: auto;
+  margin: 10rem auto 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +33,32 @@ body {
 
 .wrong-letter {
   font-style: bold;
-  color: rgb(172, 4, 4);
+  color: var(--wrong-letters-color);
   font-size: 1.8rem;
 }
 
 .show-wrong-letter {
-  color: red;
+  color: var(--answer-letter-color);
+}
+
+/* .btn {
+  border: none;
+  padding: 1.2rem 1.2rem;
+  border-radius: 40%;
+  background-color: var(--btn-color);
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+.btn:hover {
+  background-color: var(--btn-color--hover);
+} */
+
+.input-checker {
+  width: 4rem;
+  background-color: rgba(40, 207, 82, 0.637);
 }
 
 /* test */
@@ -38,6 +66,18 @@ body {
 
 .margin-top-s {
   margin-top: 0.5rem;
+}
+
+.margin-top-m {
+  margin-top: 1.5rem;
+}
+
+.margin-top-l {
+  margin-top: 1.5rem;
+}
+
+.margin-top-xl {
+  margin-top: 2.5rem;
 }
 
 .bottom-margin-s {
@@ -50,6 +90,14 @@ body {
 
 .bottom-margin-l {
   margin-bottom: 1.5rem;
+}
+
+.bottom-margin-xl {
+  margin-bottom: 2.5rem;
+}
+
+.bottom-margin-xxl {
+  margin-bottom: 10rem;
 }
 
 .right-margin-s {
