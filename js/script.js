@@ -8,6 +8,7 @@ const gameMode = document.querySelector("#game");
 const containerWrongAnswer = document.querySelector(".container-wrong-answer");
 const hangman = document.querySelectorAll(".hangmanAll");
 const hangmanContainer = document.querySelector(".hangman-container");
+const fire = document.querySelector(".fire");
 
 inputChecker.maxLength = 1;
 let letterArrayHolder;
@@ -16,6 +17,7 @@ let letterDoesNotExistArray = [];
 btnCheck.disabled = true;
 let lifesCounter = 0;
 let hangmanCounter = 0;
+let winningCounter = 0;
 
 // This button will start the game and hide the word
 
@@ -37,6 +39,7 @@ const startGame = function () {
     inputChecker.value = "";
     containerWrongAnswer.innerHTML = "";
     const gameModeValue = gameMode.value;
+    winningCounter = 0;
     // here checks what game mode we have and sends the right fech to the function
     if (gameModeValue === "pokemon") {
       const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=10001";
@@ -58,8 +61,17 @@ const checkGame = function () {
 
     // Replace the underscore with the letter if the guess was correct
     letterArrayHolder.forEach((element, i) => {
-      if (answerGiven === element) replaceUnderscore[i].textContent = element;
+      if (answerGiven === element) {
+        replaceUnderscore[i].textContent = element;
+        winningCounter++;
+      }
     });
+
+    // Here is the winning solution and actions
+
+    if (letterArrayHolder.length === winningCounter) {
+      btnCheck.disabled = true;
+    }
 
     // If theres a letter that already exists in the wrongLetter then dont do anything.
 
@@ -78,6 +90,7 @@ const checkGame = function () {
         console.log(hangman[hangmanCounter]);
         hangmanCounter++;
         if (lifesCounter === 6) {
+          fire.classList.remove("hidden");
           btnStart.focus();
           letterArrayHolder.forEach((value, i) => {
             // Here checks the left _ and adds a class to show with red the undercovered letters
@@ -89,7 +102,6 @@ const checkGame = function () {
 
           console.log("you lost");
           btnCheck.disabled = true;
-          return;
         }
 
         console.log(lifesCounter);
@@ -155,23 +167,55 @@ const resOfFetches = function (fetchData, gameMode) {
           hiddenUnderscore = document.createElement("em");
           hiddenUnderscore.classList.add("right-margin-s", "underscores-lines");
 
-          if (element === "'") hiddenUnderscore.textContent = "'";
-          else if (element === "0") hiddenUnderscore.textContent = "0";
-          else if (element === "1") hiddenUnderscore.textContent = "1";
-          else if (element === "2") hiddenUnderscore.textContent = "2";
-          else if (element === "3") hiddenUnderscore.textContent = "3";
-          else if (element === "4") hiddenUnderscore.textContent = "4";
-          else if (element === "5") hiddenUnderscore.textContent = "5";
-          else if (element === "6") hiddenUnderscore.textContent = "6";
-          else if (element === "7") hiddenUnderscore.textContent = "7";
-          else if (element === "8") hiddenUnderscore.textContent = "8";
-          else if (element === "9") hiddenUnderscore.textContent = "9";
-          else if (element === ",") hiddenUnderscore.textContent = ",";
-          else if (element === ".") hiddenUnderscore.textContent = ".";
-          else if (element === "'") hiddenUnderscore.textContent = "'";
-          else if (element === "-") hiddenUnderscore.textContent = "-";
-          else if (element === " ") hiddenUnderscore.textContent = " ";
-          else {
+          if (element === "'") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "'";
+          } else if (element === "0") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "0";
+          } else if (element === "1") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "1";
+          } else if (element === "2") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "2";
+          } else if (element === "3") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "3";
+          } else if (element === "4") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "4";
+          } else if (element === "5") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "5";
+          } else if (element === "6") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "6";
+          } else if (element === "7") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "7";
+          } else if (element === "8") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "8";
+          } else if (element === "9") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "9";
+          } else if (element === ",") {
+            winningCounter++;
+            hiddenUnderscore.textContent = ",";
+          } else if (element === ".") {
+            winningCounter++;
+            hiddenUnderscore.textContent = ".";
+          } else if (element === "'") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "'";
+          } else if (element === "-") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "-";
+          } else if (element === " ") {
+            winningCounter++;
+            hiddenUnderscore.textContent = " ";
+          } else {
             hiddenUnderscore.textContent = "_";
           }
           cotnainerUnderscores.appendChild(hiddenUnderscore);
@@ -195,6 +239,7 @@ const resOfFetches = function (fetchData, gameMode) {
 
 const addHiddenClass = function () {
   hangmanContainer.classList.add("hidden");
+  fire.classList.add("hidden");
   hangman.forEach((element) => {
     element.classList.add("hidden");
   });

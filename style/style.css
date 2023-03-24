@@ -42,9 +42,10 @@ body {
 }
 
 /* .btn {
+  font-size: 1.1rem;
   border: none;
-  padding: 1.2rem 1.2rem;
-  border-radius: 40%;
+  padding: 2rem 0.5rem;
+  border-radius: 50%;
   background-color: var(--btn-color);
   color: white;
   cursor: pointer;
@@ -138,6 +139,7 @@ body {
   position: absolute;
   top: 30px;
   left: 75px;
+  animation: test 0.6s linear;
 }
 
 .body {
@@ -147,6 +149,7 @@ body {
   position: absolute;
   top: 80px;
   left: 97px;
+  animation: test 0.6s linear;
 }
 
 .left-arm {
@@ -157,6 +160,8 @@ body {
   position: absolute;
   top: 90px;
   left: 60px;
+
+  animation: test 0.6s linear;
 }
 
 .right-arm {
@@ -167,6 +172,7 @@ body {
   position: absolute;
   top: 90px;
   left: 98px;
+  animation: test 0.6s linear;
 }
 
 .left-leg {
@@ -177,6 +183,8 @@ body {
   position: absolute;
   top: 145px;
   left: 60px;
+
+  animation: test 0.6s linear;
 }
 
 .right-leg {
@@ -187,8 +195,50 @@ body {
   position: absolute;
   top: 145px;
   left: 98px;
+
+  animation: test 0.6s linear;
 }
 
 .hidden {
   display: none;
+}
+
+/* animation test */
+
+@keyframes test {
+  0% {
+    transform: translatey(-100rem);
+  }
+
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.fire {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #ff0000, #ff9b00);
+  border-radius: 20%;
+  animation: flicker 1s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% {
+    box-shadow: 0 0 50px #ff9b00, 0 0 100px #ff9b00, 0 0 150px #ff9b00;
+  }
+  25% {
+    box-shadow: 0 0 25px #ff9b00, 0 0 50px #ff9b00, 0 0 75px #ff9b00;
+  }
+  50% {
+    box-shadow: 0 0 10px #ff9b00, 0 0 20px #ff9b00, 0 0 30px #ff9b00;
+  }
+  75% {
+    box-shadow: 0 0 25px #ff9b00, 0 0 50px #ff9b00, 0 0 75px #ff9b00;
+  }
+  100% {
+    box-shadow: 0 0 50px #ff9b00, 0 0 100px #ff9b00, 0 0 150px #ff9b00;
+    height: 200px;
+    width: 200px;
+  }
 }
