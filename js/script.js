@@ -14,10 +14,14 @@ inputChecker.maxLength = 1;
 let letterArrayHolder;
 let hiddenUnderscore;
 let letterDoesNotExistArray = [];
+let letterDoesExistArray = [];
+let letterExistArray = [];
 btnCheck.disabled = true;
 let lifesCounter = 0;
 let hangmanCounter = 0;
 let winningCounter = 0;
+let letterExistCounter = 0;
+let sumExistCounter = 0;
 
 // This button will start the game and hide the word
 
@@ -33,6 +37,7 @@ const startGame = function () {
     addHiddenClass();
     inputChecker.focus();
     letterDoesNotExistArray = [];
+    letterDoesExistArray = [];
     btnCheck.disabled = false;
     lifesCounter = 0;
     hangmanCounter = 0;
@@ -40,6 +45,9 @@ const startGame = function () {
     containerWrongAnswer.innerHTML = "";
     const gameModeValue = gameMode.value;
     winningCounter = 0;
+    sumExistCounter = 0;
+    letterExistArray = [];
+
     // here checks what game mode we have and sends the right fech to the function
     if (gameModeValue === "pokemon") {
       const pokemonFetchData = "https://pokeapi.co/api/v2/pokemon?limit=10001";
@@ -60,17 +68,26 @@ const checkGame = function () {
     const replaceUnderscore = document.querySelectorAll(".underscores-lines");
 
     // Replace the underscore with the letter if the guess was correct
-    letterArrayHolder.forEach((element, i) => {
-      if (answerGiven === element) {
-        replaceUnderscore[i].textContent = element;
-        winningCounter++;
-      }
-    });
+    if (!letterExistArray.includes(answerGiven)) {
+      letterArrayHolder.forEach((element, i) => {
+        // Here checks all the array and then if the number matches with the current element, it replaces it.
+        if (answerGiven === element) {
+          replaceUnderscore[i].textContent = element;
+          winningCounter++;
+          console.log("the letter exist ", winningCounter);
+        }
+      });
+      letterExistArray.push(answerGiven);
+    }
 
     // Here is the winning solution and actions
-
     if (letterArrayHolder.length === winningCounter) {
       btnCheck.disabled = true;
+      modal.classList.remove("hidden");
+      modal.classList.add("win-modal");
+      btnCheck.classList.add("btn-disabled--hover");
+      fire.classList.remove("hidden");
+      btnStart.focus();
     }
 
     // If theres a letter that already exists in the wrongLetter then dont do anything.
@@ -83,13 +100,14 @@ const checkGame = function () {
         // Here is the check of the lifes counter
         lifesCounter++;
 
-        //  ! Twra prepei na kanw kati wste otan ftanei ola ta lathi na kanei kati.
+        //  todo Twra prepei na kanw kati wste otan ftanei ola ta lathi na kanei kati.
         // Here shows for each mistake a piece of the hangman
         hangmanContainer.classList.remove("hidden");
         hangman[hangmanCounter].classList.remove("hidden");
         console.log(hangman[hangmanCounter]);
         hangmanCounter++;
         if (lifesCounter === 6) {
+          btnCheck.classList.add("btn-disabled--hover");
           fire.classList.remove("hidden");
           btnStart.focus();
           letterArrayHolder.forEach((value, i) => {
@@ -100,18 +118,21 @@ const checkGame = function () {
             } else replaceUnderscore[i].textContent = value;
           });
 
+          // Lose modal functionality
+          //!here
           console.log("you lost");
+          modal.classList.remove("hidden");
+          modal.classList.add("lose-modal");
           btnCheck.disabled = true;
         }
 
-        console.log(lifesCounter);
+        // console.log(lifesCounter);
         const letterDoesntExist = document.createElement("em");
         letterDoesntExist.classList.add("right-margin-s", "wrong-letter");
         letterDoesntExist.innerHTML = answerGiven;
         containerWrongAnswer.append(letterDoesntExist);
       }
     }
-
     inputChecker.value = "";
   });
 };
@@ -170,6 +191,9 @@ const resOfFetches = function (fetchData, gameMode) {
           if (element === "'") {
             winningCounter++;
             hiddenUnderscore.textContent = "'";
+          } else if (element === '"') {
+            winningCounter++;
+            hiddenUnderscore.textContent = '"';
           } else if (element === "0") {
             winningCounter++;
             hiddenUnderscore.textContent = "0";
@@ -240,7 +264,32 @@ const resOfFetches = function (fetchData, gameMode) {
 const addHiddenClass = function () {
   hangmanContainer.classList.add("hidden");
   fire.classList.add("hidden");
+  modal.classList.add("hidden");
+  modal.classList.add("modal");
+  modal.classList.remove("win-modal");
+  modal.classList.remove("lose-modal");
   hangman.forEach((element) => {
     element.classList.add("hidden");
   });
+
+  // removes the disabled class of the button
+  btnCheck.classList.remove("btn-disabled--hover");
 };
+
+// ! This is MODAL
+
+const closeModal = document.querySelector(".close-modal");
+const modal = document.querySelector(".modal");
+
+modal.addEventListener("click", function () {
+  modal.classList.remove("modal");
+  modal.classList.add("hidden");
+});
+closeModal.addEventListener("click", function () {
+  modal.classList.remove("modal");
+  modal.classList.add("hidden", "win-modal");
+});
+
+// ! Button function for disable the btn when win/lose the game
+
+const checkBtnTrigger = function () {};

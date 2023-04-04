@@ -9,9 +9,9 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="bottom-margin-xxl">Hello welcome to the hangman game</h1>
+      <h1 class="header-text bottom-margin-xl">Welcome to the hangman game</h1>
       <label for="game" class="bottom-margin-s">Choose a game</label>
-      <select name="game" id="game" class="bottom-margin-s">
+      <select name="game" id="game" class="bottom-margin-xl">
         <option value="pokemon">Pokemon</option>
         <option value="yu-gi-oh">Yu-gi-oh</option>
       </select>
@@ -19,25 +19,37 @@
       <div class="container-underscores bottom-margin-l"></div>
 
       <div class="second-player">
-        <label for="second-player">Write a letter</label>
-        <input type="text" id="second-player" class="input-checker both-inputs" />
+        <label for="second-player ">Write a letter</label>
+        <input
+          type="text"
+          id="second-player"
+          class="input-checker both-inputs margin-right-left--s"
+        />
         <button class="btn btn-check">check the answer</button>
 
         <div class="ban-letters dispay-flex">
-          <div class="margin-top-s">Ban letters</div>
+          <div class="margin-top-s">Wrong letters</div>
           <div class="container-wrong-answer"></div>
         </div>
       </div>
+
+      <!-- test -->
+      <div class="hangman hangman-container hidden">
+        <div class="hangmanAll head"></div>
+        <div class="hangmanAll body hidden"></div>
+        <div class="hangmanAll left-arm hidden"></div>
+        <div class="hangmanAll right-arm hidden"></div>
+        <div class="hangmanAll left-leg hidden"></div>
+        <div class="hangmanAll right-leg hidden"></div>
+        <div class="fire hidden"></div>
+      </div>
     </div>
-    <!-- test -->
-    <div class="hangman hangman-container hidden">
-      <div class="hangmanAll head"></div>
-      <div class="hangmanAll body hidden"></div>
-      <div class="hangmanAll left-arm hidden"></div>
-      <div class="hangmanAll right-arm hidden"></div>
-      <div class="hangmanAll left-leg hidden"></div>
-      <div class="hangmanAll right-leg hidden"></div>
-      <div class="fire hidden"></div>
+
+    <div class="modal hidden">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <p class="test-lekseis">Modal Content Goes Here</p>
+      </div>
     </div>
   </body>
   <script src="/js/script.js"></script>
