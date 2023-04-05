@@ -553,19 +553,30 @@ body {
     font-size: 0.6rem;
   }
 
-  /* .hangman {
-    margin: 15px auto 5px;
-  } */
   .input-checker {
     width: 3.2rem;
     padding: 0.9rem;
   }
-
-  /* .head {
-    width: 40px;
-    height: 40px;
-  } */
 }
+
+@media (max-width: 324px) {
+  .header-text {
+    font-size: 0.9rem;
+  }
+  .btn {
+    padding: 0.4rem 0.2rem;
+    border-radius: 15%;
+  }
+  .second-player {
+    font-size: 0.6rem;
+  }
+
+  .input-checker {
+    width: 2rem;
+    padding: 0.4rem;
+  }
+}
+
 @media (max-width: 310px) {
   .header-text {
     font-size: 0.9rem;
@@ -586,9 +597,4 @@ body {
     width: 2rem;
     padding: 0.4rem;
   }
-
-  /* .head {
-    width: 40px;
-    height: 40px;
-  } */
 }
