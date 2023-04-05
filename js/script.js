@@ -116,7 +116,7 @@ const checkGame = function () {
           btnCheck.classList.add("btn-disabled--hover");
           fire.classList.remove("hidden");
           btnStart.focus();
-          modalText.innerHTML = `You didn't won this time ☹️☹️☹️`;
+          modalText.innerHTML = `You lost ☹️☹️☹️, try again!`;
 
           letterArrayHolder.forEach((value, i) => {
             // Here checks the left _ and adds a class to show with red the undercovered letters
@@ -230,6 +230,9 @@ const resOfFetches = function (fetchData, gameMode) {
           } else if (element === "'") {
             winningCounter++;
             hiddenUnderscore.textContent = "'";
+          } else if (element === "-") {
+            winningCounter++;
+            hiddenUnderscore.textContent = "-";
           } else if (element === "-") {
             winningCounter++;
             hiddenUnderscore.textContent = "-";
