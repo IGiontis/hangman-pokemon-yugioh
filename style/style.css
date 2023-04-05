@@ -492,7 +492,6 @@ body {
   .btn {
     padding: 0.8rem 0.6rem;
     border-radius: 15%;
-    /* font-size: 0.9rem; */
   }
   .second-player {
     font-size: 1.2rem;
@@ -506,7 +505,6 @@ body {
   .btn {
     padding: 0.8rem 0.6rem;
     border-radius: 15%;
-    /* font-size: 0.9rem; */
   }
   .second-player {
     font-size: 1rem;
@@ -525,7 +523,6 @@ body {
   .btn {
     padding: 0.8rem 0.6rem;
     border-radius: 15%;
-    /* font-size: 0.9rem; */
   }
   .second-player {
     font-size: 0.8rem;
@@ -547,7 +544,6 @@ body {
   .btn {
     padding: 0.8rem 0.6rem;
     border-radius: 15%;
-    /* font-size: 0.9rem; */
   }
   .second-player {
     font-size: 0.6rem;
@@ -584,15 +580,11 @@ body {
   .btn {
     padding: 0.4rem 0.2rem;
     border-radius: 15%;
-    /* font-size: 0.9rem; */
   }
   .second-player {
     font-size: 0.6rem;
   }
 
-  /* .hangman {
-    margin: 15px auto 5px;
-  } */
   .input-checker {
     width: 2rem;
     padding: 0.4rem;
