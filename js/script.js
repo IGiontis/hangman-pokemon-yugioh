@@ -3,20 +3,27 @@
 const inputChecker = document.querySelector(".input-checker");
 const btnStart = document.querySelector(".btn-start");
 const btnCheck = document.querySelector(".btn-check");
-const cotnainerUnderscores = document.querySelector(".container-underscores");
+const containerUnderscores = document.querySelector(".container-underscores");
 const gameMode = document.querySelector("#game");
 const containerWrongAnswer = document.querySelector(".container-wrong-answer");
+const loaderUnderscoreContainer = document.querySelector(".loader-underscore-container");
+const timeoutError = document.querySelector(".timeout-error");
 const hangman = document.querySelectorAll(".hangmanAll");
 const hangmanContainer = document.querySelector(".hangman-container");
 const fire = document.querySelector(".fire");
+const closeModal = document.querySelector(".close-modal");
+const modal = document.querySelector(".modal");
+const modalText = document.querySelector(".modal-text");
+const loader = document.querySelector(".loader");
 
 inputChecker.maxLength = 1;
+btnCheck.disabled = true;
+btnCheck.classList.add("btn-disabled--hover");
 let letterArrayHolder;
 let hiddenUnderscore;
 let letterDoesNotExistArray = [];
 let letterDoesExistArray = [];
 let letterExistArray = [];
-btnCheck.disabled = true;
 let lifesCounter = 0;
 let hangmanCounter = 0;
 let winningCounter = 0;
@@ -38,7 +45,6 @@ const startGame = function () {
     inputChecker.focus();
     letterDoesNotExistArray = [];
     letterDoesExistArray = [];
-    btnCheck.disabled = false;
     lifesCounter = 0;
     hangmanCounter = 0;
     inputChecker.value = "";
@@ -47,6 +53,7 @@ const startGame = function () {
     winningCounter = 0;
     sumExistCounter = 0;
     letterExistArray = [];
+    btnCheck.classList.add("btn-disabled--hover");
 
     // here checks what game mode we have and sends the right fech to the function
     if (gameModeValue === "pokemon") {
@@ -74,7 +81,6 @@ const checkGame = function () {
         if (answerGiven === element) {
           replaceUnderscore[i].textContent = element;
           winningCounter++;
-          console.log("the letter exist ", winningCounter);
         }
       });
       letterExistArray.push(answerGiven);
@@ -85,8 +91,11 @@ const checkGame = function () {
       btnCheck.disabled = true;
       modal.classList.remove("hidden");
       modal.classList.add("win-modal");
+      console.log(letterArrayHolder.toString());
+
+      //!!
+      modalText.innerHTML = `Good job you WON🥇🥇🥇`;
       btnCheck.classList.add("btn-disabled--hover");
-      fire.classList.remove("hidden");
       btnStart.focus();
     }
 
@@ -95,21 +104,20 @@ const checkGame = function () {
     if (!letterArrayHolder.includes(answerGiven)) {
       if (answerGiven !== "" && !letterDoesNotExistArray.includes(answerGiven)) {
         letterDoesNotExistArray.push(answerGiven);
-        console.log(letterDoesNotExistArray);
 
         // Here is the check of the lifes counter
         lifesCounter++;
 
-        //  todo Twra prepei na kanw kati wste otan ftanei ola ta lathi na kanei kati.
         // Here shows for each mistake a piece of the hangman
         hangmanContainer.classList.remove("hidden");
         hangman[hangmanCounter].classList.remove("hidden");
-        console.log(hangman[hangmanCounter]);
         hangmanCounter++;
         if (lifesCounter === 6) {
           btnCheck.classList.add("btn-disabled--hover");
           fire.classList.remove("hidden");
           btnStart.focus();
+          modalText.innerHTML = `You didn't won this time ☹️☹️☹️`;
+
           letterArrayHolder.forEach((value, i) => {
             // Here checks the left _ and adds a class to show with red the undercovered letters
             if (replaceUnderscore[i].textContent === "_") {
@@ -119,14 +127,11 @@ const checkGame = function () {
           });
 
           // Lose modal functionality
-          //!here
-          console.log("you lost");
           modal.classList.remove("hidden");
           modal.classList.add("lose-modal");
           btnCheck.disabled = true;
         }
 
-        // console.log(lifesCounter);
         const letterDoesntExist = document.createElement("em");
         letterDoesntExist.classList.add("right-margin-s", "wrong-letter");
         letterDoesntExist.innerHTML = answerGiven;
@@ -138,17 +143,13 @@ const checkGame = function () {
 };
 checkGame();
 
-// Triggers the enter button when the user is inside the input and clicks it
-inputChecker.addEventListener("keydown", function (e) {
-  if (e.keyCode === 13) {
-    e.preventDefault();
-    btnCheck.click();
-  }
-});
-
 // Heres the fetches
 const resOfFetches = function (fetchData, gameMode) {
   try {
+    //!
+    timeoutError.innerHTML = "";
+    loader.style.display = "block";
+    containerUnderscores.innerHTML = "";
     // Abortcontroler stops the fetch request
     const controller = new AbortController();
     const signal = controller.signal;
@@ -156,7 +157,6 @@ const resOfFetches = function (fetchData, gameMode) {
     // Set a timeout to abort the fetch request after 15 seconds
     const timeoutId = setTimeout(() => {
       controller.abort();
-      console.log("Fetch request timed out.");
     }, 15000);
 
     fetch(fetchData, { signal })
@@ -165,8 +165,9 @@ const resOfFetches = function (fetchData, gameMode) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-
+        // !
+        btnCheck.disabled = false;
+        btnCheck.classList.remove("btn-disabled--hover");
         let pokemonOrYuGiNames;
         // Here checks the mode and puts the right pokemon or card
         if (gameMode === "pokemon") {
@@ -178,13 +179,9 @@ const resOfFetches = function (fetchData, gameMode) {
           pokemonOrYuGiNames[Math.floor(Math.random() * pokemonOrYuGiNames.length)].toLowerCase();
 
         //  randomPokemonName is an array with each letter of the pokemon
-        console.log(randomPokemonName);
         letterArrayHolder = randomPokemonName.split("");
-        cotnainerUnderscores.innerHTML = "";
-        console.log(letterArrayHolder);
-
+        containerUnderscores.innerHTML = "";
         letterArrayHolder.forEach((element) => {
-          console.log(element);
           hiddenUnderscore = document.createElement("em");
           hiddenUnderscore.classList.add("right-margin-s", "underscores-lines");
 
@@ -242,12 +239,17 @@ const resOfFetches = function (fetchData, gameMode) {
           } else {
             hiddenUnderscore.textContent = "_";
           }
-          cotnainerUnderscores.appendChild(hiddenUnderscore);
+          // containerUnderscores.appendChild(hiddenUnderscore);
+          containerUnderscores.insertAdjacentElement("afterbegin", hiddenUnderscore);
         });
+        //!
+        loader.style.display = "none";
+        //!
       })
       .catch((error) => {
         if (error.name === "AbortError") {
           console.error("Fetch request aborted.");
+          testf();
         } else {
           console.error("Error:", error);
         }
@@ -261,6 +263,7 @@ const resOfFetches = function (fetchData, gameMode) {
   }
 };
 
+// This function addes and removes the modals and the hiddens
 const addHiddenClass = function () {
   hangmanContainer.classList.add("hidden");
   fire.classList.add("hidden");
@@ -273,14 +276,10 @@ const addHiddenClass = function () {
   });
 
   // removes the disabled class of the button
-  btnCheck.classList.remove("btn-disabled--hover");
+  // btnCheck.classList.remove("btn-disabled--hover");
 };
 
-// ! This is MODAL
-
-const closeModal = document.querySelector(".close-modal");
-const modal = document.querySelector(".modal");
-
+// Modal events
 modal.addEventListener("click", function () {
   modal.classList.remove("modal");
   modal.classList.add("hidden");
@@ -292,4 +291,26 @@ closeModal.addEventListener("click", function () {
 
 // ! Button function for disable the btn when win/lose the game
 
-const checkBtnTrigger = function () {};
+// Triggers the ENTER button when the user is inside the input and clicks it
+inputChecker.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    btnCheck.click();
+  }
+});
+
+// test function //!
+
+const testf = function () {
+  timeoutError.innerHTML = "Your internet connection is to slow";
+  loader.style.display = "none";
+  btnCheck.disabled = true;
+  btnCheck.classList.add("btn-disabled--hover");
+};
+
+const clearTimeoutDiv = function () {
+  timeoutError.innerHTML = "";
+};
+
+//! THIS MAKES THE ARRAY BACK TO THE STRING
+// letterArrayHolder.toString().replaceAll(",", "")

@@ -16,8 +16,11 @@
         <option value="yu-gi-oh">Yu-gi-oh</option>
       </select>
       <button class="btn btn-start bottom-margin-m">start game</button>
-      <div class="container-underscores bottom-margin-l"></div>
-
+      <div class="loader-underscore-container">
+        <div class="loader hidden"></div>
+        <div class="timeout-error"></div>
+        <div class="container-underscores bottom-margin-l"></div>
+      </div>
       <div class="second-player">
         <label for="second-player ">Write a letter</label>
         <input
@@ -48,9 +51,20 @@
     <div class="modal hidden">
       <div class="modal-content">
         <span class="close-modal">&times;</span>
-        <p class="test-lekseis">Modal Content Goes Here</p>
+        <p class="modal-text">Modal Content Goes Here</p>
       </div>
     </div>
+
+    <!-- test -->
   </body>
   <script src="/js/script.js"></script>
 </html>
+
+<!-- 
+
+  loipon twra exw na kanw : 
+
+  1) na valw na emfanizete prwta to spinner anti twn underscore _ _ _ _ 
+
+  2) an den kanei load na emfanizei to error 
+ -->

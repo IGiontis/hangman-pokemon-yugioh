@@ -48,6 +48,9 @@ body {
   color: var(--answer-letter-color);
 }
 
+/******************************/
+/* BUTTONS */
+/******************************/
 .btn {
   font-size: 1rem;
   border: none;
@@ -74,6 +77,9 @@ body {
   cursor: default;
 }
 
+/******************************/
+/* INPUT */
+/******************************/
 .input-checker {
   text-align: center;
   border: none;
@@ -84,84 +90,9 @@ body {
   background-color: rgba(40, 207, 82, 0.637);
 }
 
-/* test */
-/* Helpers */
-
-.margin-top-s {
-  margin-top: 0.5rem;
-}
-
-.margin-top-m {
-  margin-top: 1.5rem;
-}
-
-.margin-top-l {
-  margin-top: 1.5rem;
-}
-
-.margin-top-xl {
-  margin-top: 2.5rem;
-}
-
-.right-margin-s {
-  margin-right: 1.1rem;
-}
-
-.bottom-margin-s {
-  margin-bottom: 0.5rem;
-}
-
-.bottom-margin-m {
-  margin-bottom: 1rem;
-}
-
-.bottom-margin-l {
-  margin-bottom: 1.5rem;
-}
-
-.bottom-margin-xl {
-  margin-bottom: 2.5rem;
-}
-
-.bottom-margin-xxl {
-  margin-bottom: 10rem;
-}
-
-.margin-left-s {
-  margin-left: 0.5rem;
-}
-
-.margin-left-m {
-  margin-left: 1rem;
-}
-
-.margin-left-l {
-  margin-left: 1.5rem;
-}
-
-.margin-left-xl {
-  margin-left: 2.5rem;
-}
-
-.margin-right-left--s {
-  margin: 0 0.5rem;
-}
-
-.margin-right-left--m {
-  margin: 0 1rem;
-}
-
-.margin-right-left--l {
-  margin: 0 1.5rem;
-}
-.dispay-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Hangman */
-
+/******************************/
+/* HANGMAN */
+/******************************/
 .hangman {
   display: flex;
   flex-direction: column;
@@ -252,7 +183,61 @@ body {
   display: none;
 }
 
-/* animation test */
+/******************************/
+/* ERROR NETWORK  */
+/******************************/
+.timeout-error {
+  font-size: 1.8rem;
+  color: var(--answer-letter-color);
+  font-weight: 700;
+}
+
+/******************************/
+/* MODAL */
+/******************************/
+
+.modal {
+  /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  text-align: center;
+  background-color: #fefefea8;
+  margin: auto;
+  /* padding: 20px; */
+  border: 1px solid #888;
+
+  height: 100%;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.close-modal {
+  padding: 0.5rem;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.win-modal {
+  background-color: rgba(32, 219, 32, 0.61);
+}
+
+.lose-modal {
+  background-color: rgba(228, 0, 0, 0.685);
+}
+
+/******************************/
+/* ANIMATIONS */
+/******************************/
 
 @keyframes test {
   0% {
@@ -292,41 +277,99 @@ body {
   }
 }
 
-.modal {
-  /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 9999; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  position: relative;
-  text-align: center;
-  background-color: #fefefea8;
+/* test */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
   margin: auto;
-  /* padding: 20px; */
-  border: 1px solid #888;
-
-  height: 100%;
-  max-width: 100%;
-  border-radius: 5px;
 }
 
-.close-modal {
-  padding: 0.5rem;
-  margin: 1rem;
-  cursor: pointer;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.win-modal {
-  background-color: rgba(32, 219, 32, 0.61);
+/******************************/
+/* HELPERS */
+/******************************/
+
+.margin-top-s {
+  margin-top: 0.5rem;
 }
 
-.lose-modal {
-  background-color: rgba(228, 0, 0, 0.685);
+.margin-top-m {
+  margin-top: 1.5rem;
+}
+
+.margin-top-l {
+  margin-top: 1.5rem;
+}
+
+.margin-top-xl {
+  margin-top: 2.5rem;
+}
+
+.right-margin-s {
+  margin-right: 1.1rem;
+}
+
+.bottom-margin-s {
+  margin-bottom: 0.5rem;
+}
+
+.bottom-margin-m {
+  margin-bottom: 1rem;
+}
+
+.bottom-margin-l {
+  margin-bottom: 1.5rem;
+}
+
+.bottom-margin-xl {
+  margin-bottom: 2.5rem;
+}
+
+.bottom-margin-xxl {
+  margin-bottom: 10rem;
+}
+
+.margin-left-s {
+  margin-left: 0.5rem;
+}
+
+.margin-left-m {
+  margin-left: 1rem;
+}
+
+.margin-left-l {
+  margin-left: 1.5rem;
+}
+
+.margin-left-xl {
+  margin-left: 2.5rem;
+}
+
+.margin-right-left--s {
+  margin: 0 0.5rem;
+}
+
+.margin-right-left--m {
+  margin: 0 1rem;
+}
+
+.margin-right-left--l {
+  margin: 0 1.5rem;
+}
+.dispay-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
