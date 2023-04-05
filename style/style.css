@@ -408,6 +408,10 @@ body {
   .right-margin-s {
     margin-right: 0.1rem;
   }
+
+  .footer {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 780px) {
@@ -420,6 +424,10 @@ body {
   }
   .right-margin-s {
     margin-right: 0.1rem;
+  }
+
+  .footer {
+    font-size: 1.1rem;
   }
 }
 
@@ -455,6 +463,10 @@ body {
   .second-player {
     font-size: 1.4rem;
   }
+
+  .footer {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 510px) {
@@ -469,6 +481,10 @@ body {
   .second-player {
     font-size: 1.4rem;
   }
+
+  .footer {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 460px) {
@@ -482,6 +498,10 @@ body {
   }
   .second-player {
     font-size: 1.3rem;
+  }
+
+  .footer {
+    font-size: 1rem;
   }
 }
 
@@ -513,6 +533,10 @@ body {
   .input-checker {
     width: 3.7rem;
     padding: 1.1rem;
+  }
+
+  .footer {
+    font-size: 0.6rem;
   }
 }
 
@@ -580,13 +604,18 @@ body {
   .btn {
     padding: 0.4rem 0.2rem;
     border-radius: 15%;
+    font-size: 0.3rem;
   }
   .second-player {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
   }
 
   .input-checker {
-    width: 2rem;
-    padding: 0.4rem;
+    width: 1.6rem;
+    padding: 0.1rem;
+  }
+
+  .footer {
+    font-size: 0.5rem;
   }
 }
