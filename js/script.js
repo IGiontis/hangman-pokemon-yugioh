@@ -165,7 +165,6 @@ const resOfFetches = function (fetchData, gameMode) {
         return response.json();
       })
       .then((data) => {
-        // !
         btnCheck.disabled = false;
         btnCheck.classList.remove("btn-disabled--hover");
         let pokemonOrYuGiNames;
@@ -245,16 +244,16 @@ const resOfFetches = function (fetchData, gameMode) {
           // containerUnderscores.appendChild(hiddenUnderscore);
           containerUnderscores.insertAdjacentElement("afterbegin", hiddenUnderscore);
         });
-        //!
+
         loader.style.display = "none";
-        //!
       })
       .catch((error) => {
         if (error.name === "AbortError") {
           console.error("Fetch request aborted.");
-          testf();
+          connectionError();
         } else {
-          console.error("Error:", error);
+          //! i must put something here, its when he doent have any internet connectivity
+          timeoutError.innerHTML = "Your internet connection has been lost.";
         }
       })
       .finally(() => {
@@ -277,9 +276,6 @@ const addHiddenClass = function () {
   hangman.forEach((element) => {
     element.classList.add("hidden");
   });
-
-  // removes the disabled class of the button
-  // btnCheck.classList.remove("btn-disabled--hover");
 };
 
 // Modal events
@@ -304,7 +300,7 @@ inputChecker.addEventListener("keydown", function (e) {
 
 // test function //!
 
-const testf = function () {
+const connectionError = function () {
   timeoutError.innerHTML = "Your internet connection is to slow";
   loader.style.display = "none";
   btnCheck.disabled = true;
